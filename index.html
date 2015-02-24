@@ -33,8 +33,7 @@
             </div>
             <div class="col s12 m6">
                 <div class="card">
-                    <div id="players" class="card-content"><span class="card-title grey-text text-darken-4">Players</span>
-                        <br><span class="grey-text text-darken-2">Select Games</span>
+                    <div id="players" class="card-content"><span class="card-title grey-text text-darken-4">Players</span><span class="grey-text"> (Select Games)</span>
                         <div ng-repeat="x in players">
                             <input id="{{x.name + 'Checkbox'}}" type="checkbox" ng-model="x.selected">
                             <label for="{{x.name + 'Checkbox'}}">{{x.name}}</label>
