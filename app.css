@@ -1,0 +1,18 @@
+.logo {
+    height: 50px;
+    width: 50px;
+}
+footer {
+    background-color: #333;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+}
+#games{
+    height:300px;
+    overflow-y:auto;
+}
+#players{
+    height:200px;
+    overflow-y:auto;
+}
