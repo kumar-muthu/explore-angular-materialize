@@ -3,9 +3,11 @@
         <div class="card">
             <div id="games" class="card-content">
                 <span class="card-title grey-text text-darken-4">Games</span>
-                <div ng-repeat="x in games">
-                    <input id="{{x.name + 'Checkbox'}}" type="checkbox" ng-model="x.selected" ng-change="gameSelected()">
-                    <label for="{{x.name + 'Checkbox'}}">{{x.name}}</label>
+                <div ng-repeat="item in games">
+                    <div>
+                        <input id="{{item + 'Checkbox'}}" type="checkbox" value="{{item}}" ng-change="syncSelectedGames(bool, item)" ng-model="bool" />
+                        <label for="{{item+ 'Checkbox'}}"> {{item}}</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -13,8 +15,8 @@
     <div class="col s12 m6">
         <div class="card">
             <div id="players" class="card-content"><span class="card-title grey-text text-darken-4">Players</span><span class="grey-text"> (Select Games)</span>
-                <div ng-repeat="x in players">
-                    <input id="{{x.name + 'Checkbox'}}" type="checkbox" ng-model="x.selected">
+                <div ng-repeat="x in players | bySelectedGames:selected_games">
+                    <input id="{{x.name + 'Checkbox'}}" type="checkbox" value="{{x.name}}" ng-change="syncSelectedPlayers(bool, x.name)" ng-model="bool" >
                     <label for="{{x.name + 'Checkbox'}}">{{x.name}}</label>
                 </div>
             </div>
@@ -37,7 +39,7 @@
                     </thead>
 
                     <tbody>
-                        <tr ng-repeat="x in players | filter:{selected:true}">
+                        <tr ng-repeat="x in players | bySelectedPlayers:selected_players">
                             <td>{{x.name}}</td>
                             <td>{{x.Age}}</td>
                             <td>{{x.game}}</td>

@@ -19,61 +19,80 @@ app.config(['$routeProvider',
 
 
 app.controller("myCtrl", function($scope) {
-    $scope.games = [{
-        "name": "Hockey",
-        "selected": false
-    }, {
-        "name": "Football",
-        "selected": false
-    }, {
-        "name": "Tennis",
-        "selected": false
-    }];
+    $scope.selected_games = [];
+    $scope.selected_players = [];
+    $scope.games = ["Hockey", "Football", "Tennis"];
 
-    var _players = [{
+    $scope.players = [{
         "name": "Jane Doe",
         "Age": 25,
-        "game": "Hockey",
-        "selected": false
+        "game": "Hockey"
     }, {
         "name": "Sam John",
         "Age": 25,
-        "game": "Football",
-        "selected": false
+        "game": "Football"
     }, {
         "name": "Peter Robin",
         "Age": 27,
-        "game": "Football",
-        "selected": false
+        "game": "Football"
     }, {
         "name": "Jack Dan",
         "Age": 27,
-        "game": "Tennis",
-        "selected": false
+        "game": "Tennis"
     }, {
         "name": "Sara Johnson",
         "Age": 25,
-        "game": "Tennis",
-        "selected": false
+        "game": "Tennis"
     }, {
         "name": "Jessie Jack",
         "Age": 25,
-        "game": "Football",
-        "selected": false
+        "game": "Football"
     }];
 
-    $scope.gameSelected = function() {
-        var selected_games = _.filter($scope.games, function(game) {
-            return game.selected
-        }).map(function(x) {
-            return x.name
-        });
-        $scope.players = _.filter(_players, function(player) {
-            return _.contains(selected_games, player.game)
-        });
-    }
+    $scope.syncSelectedGames = function(bool, item) {
+        if (bool) {
+            // add item
+            $scope.selected_games.push(item);
+        }
+        else {
+            // remove item
+            if (_.contains($scope.selected_games, item)) {
+                $scope.selected_games = _.without($scope.selected_games, item);
+            }
+        }
+    };
+    
+    $scope.syncSelectedPlayers = function(bool, item) {
+        if (bool) {
+            // add item
+            $scope.selected_players.push(item);
+        }
+        else {
+            // remove item
+            if (_.contains($scope.selected_players, item)) {
+                $scope.selected_players = _.without($scope.selected_players, item);
+            }
+        }
+    };
+
 });
 
+
+app.filter('bySelectedGames', function() {
+    return function(players, selected_games) {
+        return _.filter(players, function(player) {
+            return _.contains(selected_games, player.game)
+        });
+    };
+});
+
+app.filter('bySelectedPlayers', function() {
+    return function(players, selected_players) {
+        return _.filter(players, function(player) {
+            return _.contains(selected_players, player.name)
+        });
+    };
+});
 
 $(document).ready(function() {
     $(".button-collapse").sideNav();
