@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ['ngRoute']);
+var app = angular.module("myApp", ['ngRoute','ngAnimate']);
 
 app.config(['$routeProvider',
     function($routeProvider) {
@@ -58,10 +58,14 @@ app.controller("myCtrl", function($scope) {
             // remove item
             if (_.contains($scope.selected_games, item)) {
                 $scope.selected_games = _.without($scope.selected_games, item);
+                $scope.selected_players =
+                    _.filter($scope.players, function(player) {
+                        return _.contains($scope.selected_games, player.game)
+                    });
             }
         }
     };
-    
+
     $scope.syncSelectedPlayers = function(bool, item) {
         if (bool) {
             // add item
@@ -81,7 +85,7 @@ app.controller("myCtrl", function($scope) {
 app.filter('bySelectedGames', function() {
     return function(players, selected_games) {
         return _.filter(players, function(player) {
-            return _.contains(selected_games, player.game)
+            return _.contains(selected_games, player.game);
         });
     };
 });
