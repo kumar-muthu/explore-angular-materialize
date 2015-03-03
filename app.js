@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ['ngRoute','ngAnimate']);
+var app = angular.module("myApp", ['ngRoute', 'ngAnimate']);
 
 app.config(['$routeProvider',
     function($routeProvider) {
@@ -7,9 +7,9 @@ app.config(['$routeProvider',
             templateUrl: 'partials/two-way-binding.html',
             controller: 'myCtrl'
         }).
-        when('/templates', {
-            templateUrl: 'partials/templates.html',
-            controller: 'PhoneDetmyCtrlailCtrl'
+        when('/expressions', {
+            templateUrl: 'partials/expressions.html',
+            controller: 'expressionsController'
         }).
         otherwise({
             redirectTo: '/two-way-binding'
@@ -101,3 +101,25 @@ app.filter('bySelectedPlayers', function() {
 $(document).ready(function() {
     $(".button-collapse").sideNav();
 })
+
+app.controller("expressionsController", function($scope, $parse, $interpolate) {
+    $scope.person = {
+        name: "Sam William",
+        age: 50,
+        childern: ['Sam', 'Selena'],
+        email: 'test@ sam.com'
+    };
+
+    $scope.$watch("expression", function(newValue, oldValue, Scope) {
+        if (newValue !== oldValue) {
+            $scope.parsedExpression = $parse(newValue)(Scope);
+        }
+    })
+
+    $scope.emailBody = "My name is {{person.name}}";
+    $scope.$watch("emailBody", function(newValue, oldValue, Scope) {
+        if (newValue) {
+            $scope.interpolatedExpression = $interpolate(newValue)({person:Scope.person});
+        }
+    })
+});

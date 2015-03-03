@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content checkCards">
+                <span class="card-title grey-text text-darken-4">Actual Json</span>
+                <div>
+                    {{person | json}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content checkCards">
+                <span class="card-title grey-text text-darken-4">Parsed Expression</span>
+                <input type="text" placeholder="Enter an expression like - person.name" ng-model="expression" />
+                <div>
+                    {{parsedExpression}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content checkCards">
+                <span class="card-title grey-text text-darken-4">Interpolate</span>
+                <textarea ng-model="emailBody"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content checkCards">
+                <span class="card-title grey-text text-darken-4">Interpolated Expression</span>
+                <div>
+                    {{interpolatedExpression}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
